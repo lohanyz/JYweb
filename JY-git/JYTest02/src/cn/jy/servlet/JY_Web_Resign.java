@@ -1,0 +1,406 @@
+package cn.jy.servlet;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import cn.jy.entity.Resigninfo;
+import cn.jy.entity.Workerinfo;
+import cn.jy.tool.DBTool;
+import cn.jy.tool.MyConfig;
+
+public class JY_Web_Resign extends HttpServlet{
+	private static final long serialVersionUID = 1L;
+	private String 		bid,gid,state,simg;
+	private int 		rid;
+	
+	private String 		sResult = "error.jsp",
+						sql,
+						tmp,
+						str,
+						kindName,
+						kindValue,
+						sPageCurrent,
+						searchvalue
+						;
+	private	String[]	strs,
+						imgs;
+	
+	private int 		operId 	   =	0,	//	操作类型;
+			  			nSize	   =	0,	//	长度;
+			  			nItemLimit =	MyConfig.N_PAGE_COUNT,	//	数量限制;
+			  			pageCurrent=	0,	//	当前页数;
+			  			pageCount  =	0,	//	页码计数;
+			  			itemCount  =	0;	//	条目计数;	
+
+	private ArrayList<Resigninfo> list;
+	private DBTool 		dbTool;
+	private HttpSession session	=	null;
+	private Workerinfo 					user;
+	private MyConfig 					myConfig;
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		//	数据传输的类型;
+		resp.setContentType("text/html;charset=utf-8");
+		//	写数据信息操作;
+		operId			=	Integer.parseInt(req.getParameter("operid")) ;
+		dbTool			=	new DBTool();
+		myConfig		=	new MyConfig();
+		session			=	req.getSession();
+		user			=	(Workerinfo)session.getAttribute("user");
+		switch (operId) {
+		//	操作内容;
+		case 1:
+		
+			break;
+		case 2:
+			sql			=	"select * from resigninfo order by rid limit 0,"+nItemLimit;
+			list		=	dbTool.doDBQueryResigninfo(sql);
+			session.setAttribute("listResign", list);
+			session.setAttribute("pageCurrent", "0");
+			session.setAttribute("searchvalue", " ");
+			sResult		=	"resign/resign_all.jsp";
+			break;
+		//单条详情
+		case 3:
+			rid 		= 	Integer.valueOf(req.getParameter("rid"));
+			sql			=	"select * from resigninfo where rid='"+rid+"'";
+			list		=	dbTool.doDBQueryResigninfo(sql);
+			simg		=	list.get(0).getSimg();
+			imgs		= 	simg.split("_");
+			session.setAttribute("imgs", imgs);
+			session.setAttribute("listResign", list);
+			sResult		=	"resign/resign_detail.jsp";
+			break;
+		//	04.单条信息删除;
+		case 4:
+//			rid 		= 	Integer.valueOf(req.getParameter("rid"));
+//			sql			=	"delete from resigninfo where rid='"+rid+"'";
+//			dbTool.doDBUpdate(sql);		
+//			searchvalue	=	(String)session.getAttribute("searchvalue");
+//			pageCurrent	=	Integer.valueOf((String)session.getAttribute("pageCurrent"));
+//			sResult	 	= 	"../../JYTest02/resign_info?operid=12&searchvalue="+searchvalue+"&pageCurrent="+(pageCurrent+1);
+			searchvalue		=	req.getParameter("searchvalue");
+			sPageCurrent 	= 	req.getParameter("pageCurrent");
+			pageCurrent 	= 	Integer.parseInt(sPageCurrent);
+			rid 		= 	Integer.valueOf(req.getParameter("rid"));
+			sql			=	"delete from resigninfo where rid='"+rid+"'";
+			dbTool.doDBUpdate(sql);		
+			
+			sql="insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime) values(" +
+					"'"+user.getWid()+"'," +
+					"'"+user.getWname()+"'," +
+					"'"+req.getParameter("bid")+"'," +
+					"'"+req.getParameter("gid")+"'," +
+					"'签收操作'," +
+					"'删除编号为"+rid+"的签收信息',"+
+					"'"+myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分")+"'" +
+					")";
+			dbTool.doDBUpdate(sql);
+			
+			str				=	searchvalue+" ";
+			System.out.println(pageCurrent);
+			if (str.trim().equals("")) {
+				tmp = "";
+			} else {
+				strs = str.split(",");
+				tmp = " where  rid like '" + "%" + strs[0] + "%"
+						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
+						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+						+ "'";
+			}
+			if (pageCurrent >= 0) {
+				pageCount = (pageCurrent);
+				itemCount = pageCount * nItemLimit;
+				sql = "select * from resigninfo " + tmp + " order by rid limit " + itemCount + "," + nItemLimit;
+				list = dbTool.doDBQueryResigninfo(sql);
+				nSize = list.size();
+				if (nSize > 0) {
+					session.setAttribute("listResign", list);
+					session.setAttribute("pageCurrent", String.valueOf(pageCount));
+					session.setAttribute("searchvalue", searchvalue);
+					sResult = "resign/resign_all.jsp";
+				}
+			}
+			break;
+		
+		case 5:
+			rid = Integer.valueOf(req.getParameter("rid"));
+			sql			=	"select * from resigninfo where rid='"+rid+"'";
+			list		=	dbTool.doDBQueryResigninfo(sql);
+			simg		=	list.get(0).getSimg();
+			imgs		=	simg.split("_");
+			session.setAttribute("imgs", imgs);
+			session.setAttribute("listResign", list);
+			sResult		=	"resign/resign_update.jsp";
+			break;
+			//	06.条件查询;
+		case 6:
+			kindName  	= 	new String(req.getParameter("kindName").getBytes("ISO8859_1"),"utf-8");
+			kindValue  	= 	new String(req.getParameter("kindValue").getBytes("ISO8859_1"),"utf-8");
+			if(kindName.equals(" ")){
+				tmp		=	"";
+			}else{
+				tmp		=	"where "+kindName+" like '"+"%"+kindValue+"%"+"'";
+			}
+			sql			=	"select * from resigninfo "+tmp+" order by bid limit 0,"+nItemLimit;
+			list		=	dbTool.doDBQueryResigninfo(sql);
+			
+			session.setAttribute("listResign", list);
+			session.setAttribute("pageCurrent", "0");
+			session.setAttribute("kindName", kindName);
+			session.setAttribute("kindValue", kindValue);
+			
+			sResult		=	"resign/resign_all.jsp";
+			break;
+		//	07.全信息删除;
+		case 7:
+			searchvalue		=	req.getParameter("searchvalue");
+			sPageCurrent 	= 	req.getParameter("pageCurrent");
+			pageCurrent 	= 	Integer.parseInt(sPageCurrent);
+			
+			str   		= 	new String(req.getParameter("id").getBytes("ISO8859_1"),"utf-8");
+			strs		=	str.split(",");
+			int len		=	strs.length;
+			tmp="";
+			for(int i=0;i< len ;i++){
+				if(i==len-1)
+					tmp	+=	"rid="+strs[i]+" ";
+				else
+					tmp	+=	"rid="+strs[i]+" or ";
+			}
+			sql			=	"delete from resigninfo where "+tmp;
+			dbTool.doDBUpdate(sql);
+			
+			sql="insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime) values(" +
+					"'"+user.getWid()+"'," +
+					"'"+user.getWname()+"'," +
+					"'"+bid+"'," +
+					"'"+rid+"'," +
+					"'签收操作'," +
+					"'删除编号为"+str+"的签收信息',"+
+					"'"+myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分")+"'" +
+					")";
+			dbTool.doDBUpdate(sql);
+			
+			str				=	searchvalue+" ";
+			System.out.println(pageCurrent);
+			if (str.trim().equals("")) {
+				tmp = "";
+			} else {
+				strs = str.split(",");
+				tmp = " where  rid like '" + "%" + strs[0] + "%"
+						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
+						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+						+ "'";
+			}
+			if (pageCurrent >= 0) {
+				pageCount = (pageCurrent);
+				itemCount = pageCount * nItemLimit;
+				sql = "select * from resigninfo " + tmp + " order by rid limit " + itemCount + "," + nItemLimit;
+				list = dbTool.doDBQueryResigninfo(sql);
+				nSize = list.size();
+				if (nSize > 0) {
+					session.setAttribute("listResign", list);
+					session.setAttribute("pageCurrent", String.valueOf(pageCount));
+					session.setAttribute("searchvalue", searchvalue);
+					sResult = "resign/resign_all.jsp";
+				}
+			}
+//			sResult		=	"../../JYTest02/resign_info?operid=12&searchvalue="+searchvalue+"&pageCurrent="+(pageCurrent+1);
+			break;
+		//	08.信息新增;
+		case 8:
+			bid			=	new String(req.getParameter("bid").getBytes("ISO8859_1"),"utf-8");
+//			gid			=	new String(req.getParameter("gid").getBytes("ISO8859_1"),"utf-8");
+			state		=	new String(req.getParameter("state").getBytes("ISO8859_1"),"utf-8");
+			simg		=	new String(req.getParameter("simg").getBytes("ISO8859_1"),"utf-8");
+			gid			=	bid.substring(bid.indexOf('-')+1);
+			bid			=	bid.substring(0,bid.indexOf('-'));
+ 			rid			=	Integer.valueOf(req.getParameter("rid"));
+			
+			sql	 		=	"insert into resigninfo(bid,gid,rid,state,simg) " +
+					"values(" +
+					"'"+bid+"'," +
+					"'"+gid+"'," +
+					"'"+rid+"'," +
+					"'"+state+"'," +
+					"'"+simg+"')";
+			
+			dbTool.doDBUpdate(sql);
+			sql="insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime) values(" +
+					"'"+user.getWid()+"'," +
+					"'"+user.getWname()+"'," +
+					"'"+bid+"'," +
+					"'"+gid+"'," +
+					"'签收操作'," +
+					"'新增编号为"+rid+"的签收信息',"+
+					"'"+myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分")+"'" +
+					")";
+			dbTool.doDBUpdate(sql);
+				
+			sResult		=	"../../JYTest02/resign_info?operid=3&rid="+rid+"";
+
+			break;
+		//	09.信息修改后完成;
+		case 9:
+			bid			=	new String(req.getParameter("bid").getBytes("ISO8859_1"),"utf-8");
+			gid			=	new String(req.getParameter("gid").getBytes("ISO8859_1"),"utf-8");
+//			state		=	new String(req.getParameter("state").getBytes("ISO8859_1"),"utf-8");
+//			simg		=	new String(req.getParameter("simg").getBytes("ISO8859_1"),"utf-8");
+			state		=	req.getParameter("state");
+			simg		=	req.getParameter("simg");
+			rid			=	Integer.valueOf(req.getParameter("rid"));
+			
+			sql	 		=	"update resigninfo "
+					+ "set state='"+state+"',"
+					+ "simg='"+simg+"',"
+					+ "gid='"+gid+"',"
+					+ "bid='"+bid+"' "
+					+ "where rid='"+rid+"'";
+			dbTool.doDBUpdate(sql);
+			
+			sql="insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime) values(" +
+					"'"+user.getWid()+"'," +
+					"'"+user.getWname()+"'," +
+					"'"+bid+"'," +
+					"'"+gid+"'," +
+					"'签收操作'," +
+					"'修改编号为"+rid+"的签收信息',"+
+					"'"+myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分")+"'" +
+					")";
+			dbTool.doDBUpdate(sql);
+			sResult		=	"../../JYTest02/resign_info?operid=3&rid="+rid+"";
+
+			break;
+		//	10.上一页;
+		case 10:
+			searchvalue		=	req.getParameter("searchvalue");
+			str				=	searchvalue+" ";
+			sPageCurrent	=	req.getParameter("pageCurrent");
+			pageCurrent		=	Integer.parseInt(sPageCurrent);
+			
+			if (str.trim().equals("")) {
+				tmp		=	"";
+			}else{
+				strs = str.split(",");
+				tmp = " where  rid like '" + "%" + strs[0] + "%"
+						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
+						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+						+ "'";
+			}
+			if(pageCurrent>0){
+				pageCount	=	(pageCurrent-1);
+				itemCount	=	pageCount*nItemLimit;
+				sql			=	"select * from resigninfo "+tmp+" order by rid limit "+itemCount+","+nItemLimit;
+				list		=	dbTool.doDBQueryResigninfo(sql);
+				nSize		=	list.size();
+				if(nSize>0){					
+					session.setAttribute("listResign", list);
+					session.setAttribute("pageCurrent", String.valueOf(pageCount));
+					session.setAttribute("searchvalue", searchvalue);
+					sResult		=	"resign/resign_all.jsp";
+				}
+			}
+			break;
+		//	11.下一页;
+		case 11:
+			searchvalue		=	req.getParameter("searchvalue");
+			str				=	searchvalue+" ";
+			sPageCurrent	=	req.getParameter("pageCurrent");
+			pageCurrent		=	Integer.parseInt(sPageCurrent);
+			
+			if (str.trim().equals("")) {
+				tmp		=	"";
+			}else{
+				strs = str.split(",");
+				tmp = " where  rid like '" + "%" + strs[0] + "%"
+						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
+						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+						+ "'";
+			}
+			if(pageCurrent>=0){
+				pageCount	=	(pageCurrent+1);
+				itemCount	= 	pageCount*nItemLimit;
+				sql			=	"select * from resigninfo "+tmp+" order by rid limit "+itemCount+","+nItemLimit;
+				list		=	dbTool.doDBQueryResigninfo(sql);
+				nSize		=	list.size();
+				if(nSize>0){					
+					session.setAttribute("listResign", list);
+					session.setAttribute("pageCurrent", String.valueOf(pageCount));
+					session.setAttribute("searchvalue", searchvalue);
+					sResult		=	"resign/resign_all.jsp";
+				}
+			}
+			break;
+			
+		// 12.某一页;
+		case 12:
+			searchvalue		=	req.getParameter("searchvalue");
+			str				=	searchvalue+" ";
+			sPageCurrent	=	req.getParameter("pageCurrent");
+			pageCurrent		=	Integer.parseInt(sPageCurrent);
+
+			if (str.trim().equals("")) {
+				tmp		=	"";
+			}else{
+				strs = str.split(",");
+				tmp = " where  rid like '" + "%" + strs[0] + "%"
+						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
+						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+						+ "'";
+			}
+			if (pageCurrent >= 0) {
+				pageCount = (pageCurrent - 1);
+				itemCount = pageCount * nItemLimit;
+				sql = "select * from resigninfo " + tmp + " order by rid limit " + itemCount + "," + nItemLimit;
+				list = dbTool.doDBQueryResigninfo(sql);
+				nSize = list.size();
+				if (nSize > 0) {
+					session.setAttribute("listResign", list);
+					session.setAttribute("pageCurrent", String.valueOf(pageCount));
+					session.setAttribute("searchvalue", searchvalue);
+					sResult = "resign/resign_all.jsp";
+				}
+			}
+			break;
+			// 14.综合在一个页面，多条件查询
+		case 14:
+			searchvalue = new String(req.getParameter("searchvalue").getBytes( "ISO8859_1"), "utf-8");
+			str = searchvalue + " ";
+			if (str.trim().equals("")) {
+				tmp = "";
+			} else {
+				strs = str.split(",");
+				tmp = " where  rid like '" + "%" + strs[0] + "%"
+						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
+						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+						+ "'";
+				System.out.println(tmp);
+			}
+			sql = "select * from resigninfo  " + tmp + " order by rid limit 0," + nItemLimit;
+			list = dbTool.doDBQueryResigninfo(sql);
+			session.setAttribute("listResign", list);
+			session.setAttribute("pageCurrent", "0");
+			session.setAttribute("searchvalue", searchvalue);
+			sResult = "resign/resign_all.jsp";
+			break;
+		default:
+			break;
+		}
+		resp.sendRedirect(sResult);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		doGet(req, resp);
+	}
+
+}

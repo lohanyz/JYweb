@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/skin_/nav.css" />
+<link rel="stylesheet" type="text/css" href=" css/skin_/main.css" />
+<link rel="stylesheet" type="text/css" href=" css/jquery.dialog.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<title>底部内容页</title>
+</head>
+
+<body>
+<div id="container">
+	<div id="hd">
+    	<div class="hd-top">
+    		<h1 class="logo">
+    			<img src="img/skin_/JY_logo.png"> 
+    		</h1>
+            <div class="setting ue-clear">
+                <ul class="setting-main ue-clear">
+                    <li><a href="javascript:;">设置</a></li>
+                    <li><a href="javascript:;">帮助</a></li>
+                    <li><a href="javascript:;" class="close-btn exit"></a></li>
+                </ul>
+            </div>
+        </div>
+	</div>
+	<hr width="100%" size="1" color="#ccc" style="margin-top:0px;margin-bottom:0px;">
+	<div id="bd">
+    	<div class="sidebar">
+        	<div class="sidebar-bg"></div>
+            <i class="sidebar-hide"></i>
+            <h2><a href="javascript:;"><i class="h2-icon" ></i><span>后台管理系统</span></a></h2>
+            <ul class="nav">
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">系统管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="user_info?operid=2" data-id="5"><a href="user_info?operid=2" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">权限管理</span></a></li>
+                    	<li class="subnav-li" href="worker/worker_add.jsp" data-id="6"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">系统配置</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-li current" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">业务管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li current" href="business_info?operid=2" data-id="1"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部业务</span></a></li>
+                    	<li class="subnav-li" href="business/business_add.jsp" data-id="2"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增业务</span></a></li>
+                    	<li class="subnav-li" href="business/business_sort.jsp" data-id="3"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="business/business_find.jsp" data-id="4"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                 	</ul>
+                </li>
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">卡车管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="truck_info?operid=2" data-id="9"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部卡车</span></a></li>
+                    	<li class="subnav-li" href="truck/truck_add.jsp" data-id="10"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增卡车</span></a></li>
+                    	<li class="subnav-li" href="truck/truck_sort.jsp" data-id="11"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="truck/truck_find.jsp" data-id="12"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                	</ul>
+                </li>
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">挂车管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="struck_info?operid=2" data-id="13"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部挂车</span></a></li>
+                    	<li class="subnav-li" href="struck/struck_add.jsp" data-id="14"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增挂车</span></a></li>
+                    	<li class="subnav-li" href="struck/struck_sort.jsp" data-id="15"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="struck/struck_find.jsp" data-id="16"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">货物管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="goods_info?operid=2" data-id="17"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部货物</span></a></li>
+                    	<li class="subnav-li" href="goods/goods_add.jsp" data-id="18"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增货物</span></a></li>
+                    	<li class="subnav-li" href="goods/goods_sort.jsp" data-id="19"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="goods/goods_find.jsp" data-id="20"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+                 <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">油控管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="oil_info?operid=2" data-id="21"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部信息</span></a></li>
+                    	<li class="subnav-li" href="oil/oil_add.jsp" data-id="22"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增信息</span></a></li>
+                    	<li class="subnav-li" href="oil/oil_sort.jsp" data-id="23"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="oil/oil_find.jsp" data-id="24"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-li last-nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">信息追踪</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="problem_info?operid=2" data-id="25"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部信息</span></a></li>
+                    	<li class="subnav-li" href="problem/problem_add.jsp" data-id="26"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增信息</span></a></li>
+                    	<li class="subnav-li" href="problem/problem_sort.jsp" data-id="27"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="problem/problem_find.jsp" data-id="28"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+             </ul>
+        </div>
+        <div class="main">
+        	<div class="title">
+                <i class="sidebar-show"></i>
+                <ul class="tab ue-clear">
+                   
+                </ul>
+                <i class="tab-more"></i>
+                <i class="tab-close"></i>
+            </div>
+            <div class="content">
+            </div>
+        </div>
+    </div>
+      <!-- 最底部显示 -->
+    <div id="ft" class="ue-clear">
+    	<div class="ft1 ue-clear">
+        	<i class="ft-icon1"></i>
+            <span>嘉友物流管理系统</span>
+            <em>Digital Pertal</em>
+        </div>
+        <div class="ft2 ue-clear">
+        	<span>Call Center</span>
+            <em>V2.0 2017</em>
+            <i class="ft-icon2"></i>
+        </div>
+    </div>
+</div>
+<div class="exitDialog">
+	<div class="content">
+    	<div class="ui-dialog-icon"></div>
+        <div class="ui-dialog-text">
+        	<p class="dialog-content">你确定要退出系统？</p>
+            <p class="tips">如果是请点击“确定”，否则点“取消”</p>
+            
+            <div class="buttons">
+                <input type="button" class="button long2 ok" value="确定" />
+                <input type="button" class="button long2 normal" value="取消" />
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="more-bab-list">
+	<ul></ul>
+    <div class="opt-panel-ml"></div>
+    <div class="opt-panel-mr"></div>
+    <div class="opt-panel-bc"></div>
+    <div class="opt-panel-br"></div>
+    <div class="opt-panel-bl"></div>
+</div>
+</body>
+<script type="text/javascript" src="js/nav.js"></script>
+<script type="text/javascript" src="js/Menu.js"></script>
+<script type="text/javascript" src="js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="js/core.js"></script>
+<script type="text/javascript" src="js/jquery.dialog.js"></script>
+<script type="text/javascript">
+	$("#bd").height($(window).height()-$("#hd").outerHeight()-26);
+
+	$(window).resize(function(e) {
+	    $("#bd").height($(window).height()-$("#hd").outerHeight()-26);
+
+	});
+
+	$('.exitDialog').Dialog({
+		title:'提示信息',
+		autoOpen: false,
+		width:400,
+		height:200
+	});
+
+	$('.exit').click(function(){
+		$('.exitDialog').Dialog('open');
+	});
+
+	$('.exitDialog input[type=button]').click(function(e) {
+	    $('.exitDialog').Dialog('close');
+		
+		if($(this).hasClass('ok')){
+			window.location.href = "JYLogin.jsp"	;
+		}
+	});
+
+	(function(){
+		var totalWidth = 0, current = 1;
+		
+		$.each($('.nav').find('li'), function(){
+			totalWidth += $(this).outerWidth();
+		});
+		
+		$('.nav').width(totalWidth);
+		
+		function currentLeft(){
+			return -(current - 1) * 93;	
+		}
+		
+		$('.nav-btn a').click(function(e) {
+			var tempWidth = totalWidth - ( Math.abs($('.nav').css('left').split('p')[0]) + $('.nav-wrap').width() );
+	        if($(this).hasClass('nav-prev-btn')){
+				if( parseInt($('.nav').css('left').split('p')[0])  < 0){
+					current--;
+					Math.abs($('.nav').css('left').split('p')[0]) > 93 ? $('.nav').animate({'left': currentLeft()}, 200) : $('.nav').animate({'left': 0}, 200);
+				}
+			}else{
+
+				if(tempWidth  > 0)	{
+					
+				   	current++;
+					tempWidth > 93 ? $('.nav').animate({'left': currentLeft()}, 200) : $('.nav').animate({'left': $('.nav').css('left').split('p')[0]-tempWidth}, 200);
+				}
+			}
+	    });
+		
+		
+		hideElement($('.user-opt'), $('.more-info'), function(current, target){
+
+			$('.more-info').removeClass('active'); 
+		});
+		
+		hideElement($('.skin-opt'), $('.switch-bar'));
+		
+		hideElement($('.system-switch'), $('.logo-icon'), function(current, target){
+
+			$('.logo-icon').removeClass('active'); 
+		});
+		
+	})();
+	
+	
+	var menu = new Menu({
+		defaultSelect: $('.nav').find('li[data-id="1"]')	
+	});
+	
+	$('.sidebar h2').click(function(e) {
+        $('.tree-list').toggleClass('outwindow');
+		$('.nav').toggleClass('outwindow');
+    });
+	
+	$(document).click(function(e) {
+		if(!$(e.target).is('.tab-more')){
+			 $('.tab-more').removeClass('active');
+			 $('.more-bab-list').hide();
+		}
+    });
+	
+</script>
+</html>

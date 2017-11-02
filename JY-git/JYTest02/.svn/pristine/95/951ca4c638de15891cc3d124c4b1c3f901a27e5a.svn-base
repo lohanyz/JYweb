@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/skin_/nav.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+<title>底部内容页</title>
+</head>
+
+<body>
+<div id="container">
+	<div id="bd">
+    	<div class="sidebar">
+        	<div class="sidebar-bg"></div>
+            <i class="sidebar-hide"></i>
+            <h2><a href="javascript:;"><i class="h2-icon" title="切换到树型结构"></i><span>综合管理</span></a></h2>
+            <ul class="nav">
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">用户管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="user_info?operid=2" data-id="5"><a href="user_info?operid=2" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部用户</span></a></li>
+                    	<li class="subnav-li" href="worker/worker_add.jsp" data-id="6"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增用户</span></a></li>
+                    	<li class="subnav-li" href="worker/worker_sort.jsp" data-id="7"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="worker/worker_find.jsp" data-id="8"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-li current" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">业务管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li current" href="business_info?operid=2" data-id="1"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部业务</span></a></li>
+                    	<li class="subnav-li" href="business/business_add.jsp" data-id="2"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增业务</span></a></li>
+                    	<li class="subnav-li" href="business/business_sort.jsp" data-id="3"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="business/business_find.jsp" data-id="4"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                 	</ul>
+                </li>
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">卡车管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="truck_info?operid=2" data-id="9"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部卡车</span></a></li>
+                    	<li class="subnav-li" href="truck/truck_add.jsp" data-id="10"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增卡车</span></a></li>
+                    	<li class="subnav-li" href="truck/truck_sort.jsp" data-id="11"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="truck/truck_find.jsp" data-id="12"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                	</ul>
+                </li>
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">挂车管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="struck_info?operid=2" data-id="13"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部挂车</span></a></li>
+                    	<li class="subnav-li" href="struck/struck_add.jsp" data-id="14"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增挂车</span></a></li>
+                    	<li class="subnav-li" href="struck/struck_sort.jsp" data-id="15"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="struck/struck_find.jsp" data-id="16"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">货物管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="goods_info?operid=2" data-id="17"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部货物</span></a></li>
+                    	<li class="subnav-li" href="goods/goods_add.jsp" data-id="18"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增货物</span></a></li>
+                    	<li class="subnav-li" href="goods/goods_sort.jsp" data-id="19"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="goods/goods_find.jsp" data-id="20"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+                 <li class="nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">油控管理</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="oil_info?operid=2" data-id="21"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部信息</span></a></li>
+                    	<li class="subnav-li" href="oil/oil_add.jsp" data-id="22"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增信息</span></a></li>
+                    	<li class="subnav-li" href="oil/oil_sort.jsp" data-id="23"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="oil/oil_find.jsp" data-id="24"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-li last-nav-li" >
+                	<a href="javascript:;" class="ue-clear"><i class="nav-ivon"></i><span class="nav-text">信息追踪</span></a>
+                	<ul class="subnav">
+                	 	<li class="subnav-li" href="problem_info?operid=2" data-id="25"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">全部信息</span></a></li>
+                    	<li class="subnav-li" href="problem/problem_add.jsp" data-id="26"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">新增信息</span></a></li>
+                    	<li class="subnav-li" href="problem/problem_sort.jsp" data-id="27"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">分类查询</span></a></li>
+                        <li class="subnav-li" href="problem/problem_find.jsp" data-id="28"><a href="javascript:;" class="ue-clear"><i class="subnav-icon"></i><span class="subnav-text">精确查询</span></a></li>
+                    </ul>
+                </li>
+             </ul>
+        </div>
+        <div class="main">
+        	<div class="title">
+                <i class="sidebar-show"></i>
+                <ul class="tab ue-clear">
+                   
+                </ul>
+                <i class="tab-more"></i>
+                <i class="tab-close"></i>
+            </div>
+            <div class="content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="more-bab-list">
+	<ul></ul>
+    <div class="opt-panel-ml"></div>
+    <div class="opt-panel-mr"></div>
+    <div class="opt-panel-bc"></div>
+    <div class="opt-panel-br"></div>
+    <div class="opt-panel-bl"></div>
+</div>
+</body>
+<script type="text/javascript" src="js/nav.js"></script>
+<script type="text/javascript" src="js/Menu.js"></script>
+<script type="text/javascript" src="js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript">
+	var menu = new Menu({
+		defaultSelect: $('.nav').find('li[data-id="1"]')	
+	});
+	
+ 
+	$.fn.zTree.init($(".tree"), setting, zNodes);
+	
+	
+	$('.sidebar h2').click(function(e) {
+        $('.tree-list').toggleClass('outwindow');
+		$('.nav').toggleClass('outwindow');
+    });
+	
+	$(document).click(function(e) {
+		if(!$(e.target).is('.tab-more')){
+			 $('.tab-more').removeClass('active');
+			 $('.more-bab-list').hide();
+		}
+    });
+</script>
+</html>

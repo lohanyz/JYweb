@@ -1,0 +1,261 @@
+package cn.jy.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import cn.jy.entity.Boxmanageinfo;
+import cn.jy.tool.DBTool;
+import cn.jy.tool.MyConfig;
+
+public class JY_CheckBoxmanageinfo extends HttpServlet{
+	private static final long serialVersionUID = 1L;
+	private int 		nOperType,
+						nSize;
+	private String 		sql,
+						tmp,
+						sOperType,
+						sResult="fail"
+						;	
+	private String 		bid,gid,wid,getboxspace, getboxtime, backchnportime, backportstorehoustime, 
+						portranstime, transtid, downlineovertime,railwaydownlinetime,
+						fbacknulltime,state,simg, img;
+	private int 	bmid;
+	private ArrayList<Boxmanageinfo> list;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter pWriter = resp.getWriter();
+
+		DBTool 		dbTool	=	new DBTool();
+		MyConfig 	myConfig=	new MyConfig();
+		sOperType			=	req.getParameter("operType"); 
+		nOperType			=	Integer.parseInt(sOperType);
+		switch (nOperType) {
+		//信息新增
+		case 1:
+//			bid  			= new String(req.getParameter("bid").getBytes("ISO8859_1"),"utf-8");
+//			gid  			= new String(req.getParameter("gid").getBytes("ISO8859_1"),"utf-8");
+//			wid				= new String(req.getParameter("wid").getBytes("ISO8859_1"),"utf-8");
+//			getboxspace		= new String(req.getParameter("getboxspace").getBytes("ISO8859_1"),"utf-8");
+//			getboxtime		= new String(req.getParameter("getboxtime").getBytes("ISO8859_1"),"utf-8");
+//			backchnportime	= new String(req.getParameter("backchnportime").getBytes("ISO8859_1"),"utf-8");
+//			backportstorehoustime	= new String(req.getParameter("backportstorehoustime").getBytes("ISO8859_1"),"utf-8");
+//			portranstime	= new String(req.getParameter("portranstime").getBytes("ISO8859_1"),"utf-8");
+//			transtid		= new String(req.getParameter("transtid").getBytes("ISO8859_1"),"utf-8");
+//			downlineovertime	= new String(req.getParameter("downlineovertime").getBytes("ISO8859_1"),"utf-8");
+//			railwaydownlinetime		= new String(req.getParameter("railwaydownlinetime").getBytes("ISO8859_1"),"utf-8");
+//			fbacknulltime	= new String(req.getParameter("fbacknulltime").getBytes("ISO8859_1"),"utf-8");
+//			state			= new String(req.getParameter("state").getBytes("ISO8859_1"),"utf-8");
+//			simg			= new String(req.getParameter("simg").getBytes("ISO8859_1"),"utf-8");
+//			img				= new String(req.getParameter("img").getBytes("ISO8859_1"),"utf-8");
+//			bmid			= Integer.valueOf(req.getParameter("bmid"));
+			
+			bid				= 	req.getParameter("bid");
+			gid				=	req.getParameter("gid");
+			wid				=   req.getParameter("wid");
+			getboxspace		=	req.getParameter("getboxspace");
+			getboxtime		=	req.getParameter("getboxtime");
+			backchnportime	=	req.getParameter("backchnportime");
+			backportstorehoustime	=	req.getParameter("backportstorehoustime");
+			portranstime	=	req.getParameter("portranstime");
+			transtid		=	req.getParameter("transtid");
+			downlineovertime		= 	req.getParameter("downlineovertime");
+			railwaydownlinetime		= 	req.getParameter("railwaydownlinetime");
+			fbacknulltime	= 	req.getParameter("fbacknulltime");
+			state			= 	req.getParameter("state");
+			simg			= 	req.getParameter("simg");
+			img		=	"info_1_2_3_4";
+			
+			sql = "insert into boxmanageinfo(bid,gid,getboxspace, getboxtime, backchnportime, backportstorehoustime,portranstime, transtid, downlineovertime,railwaydownlinetime,fbacknulltime,state,simg, img ) "
+							+ "values(" 
+							+ "'"+ bid+ "',"
+							+ "'"+ gid+ "',"
+							+ "'"+ getboxspace+ "',"
+							+ "'"+ getboxtime+ "',"
+							+ "'"+ backchnportime+ "',"
+							+ "'"+ backportstorehoustime+ "',"
+							+ "'"+ portranstime+ "',"
+							+ "'"+ transtid+ "',"
+							+ "'"+ downlineovertime+ "',"
+							+ "'"+ railwaydownlinetime+ "',"
+							+ "'"+ fbacknulltime+ "',"
+							+ "'"+ state+ "',"
+							+ "'"+ simg+ "',"
+							+ "'"+ img+ "')";
+ 
+			dbTool.doDBUpdate(sql);	
+			System.out.println(sql);
+			sql="insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime)values(" +
+					"'"+wid+"'," +
+					"'null'," +
+					"'"+bid+"'," +
+					"'"+gid+"','箱管货物操作','新增操作'," +
+					"'"+myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分")+"'" +
+					")";
+			
+			System.out.println(sql);
+			dbTool.doDBUpdate(sql);
+			sResult="success";
+			break;
+
+		//信息查询
+		case 2:
+			bmid = Integer.valueOf(req.getParameter("bmid"));
+			sql="select * from boxmanageinfo where bmid='"+bmid+"'";
+			list=dbTool.doDBQueryBoxmanageinfo(sql);
+			nSize=list.size();
+			if(nSize>0){			
+				JSONArray array = new JSONArray();
+				for (Boxmanageinfo bean : list) {
+					JSONObject obj = new JSONObject();
+					try {
+						obj.put("bid", bean.getBid());
+						obj.put("gid", bean.getGid());
+						obj.put("bmid", bean.getBmid());
+						obj.put("getboxspace", bean.getGetboxspace());
+						obj.put("getboxtime", bean.getGetboxtime());
+						obj.put("backchnportime", bean.getBackchnportime());
+						obj.put("backportstorehoustime", bean.getBackportstorehoustime());
+						obj.put("portranstime", bean.getPortranstime());
+						obj.put("transtid", bean.getTranstid());
+						obj.put("downlineovertime", bean.getDownlineovertime());
+						obj.put("railwaydownlinetime", bean.getRailwaydownlinetime());
+						obj.put("fbacknulltime", bean.getFbacknulltime());
+						obj.put("state", bean.getState());
+						obj.put("simg", bean.getSimg());
+						obj.put("img", bean.getImg());
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					array.add(obj);
+				}
+				sResult=array.toString();
+			}		
+			break;
+		//信息查询,按bid
+		case 4:
+			tmp			=	new String(req.getParameter("bid").getBytes("iso-8859-1"),"utf-8");
+			if(tmp.indexOf("-")<0){
+				bid=tmp;
+				gid="";
+			}
+			else{
+				bid			=	tmp.substring(0, tmp.indexOf("-"));
+				gid			=	tmp.substring(tmp.indexOf("-")+1 );
+			}
+			sql			= 	"select * from boxmanageinfo where bid='"+bid+"' and gid='"+gid+"' ";
+			list = dbTool.doDBQueryBoxmanageinfo(sql);
+			nSize = list.size();
+			if (nSize > 0) {
+				JSONArray array = new JSONArray();
+				for (Boxmanageinfo bean : list) {
+					JSONObject obj = new JSONObject();
+					try {
+						obj.put("bid", bean.getBid());
+						obj.put("gid", bean.getGid());
+						obj.put("bmid", bean.getBmid());
+						obj.put("getboxspace", bean.getGetboxspace());
+						obj.put("getboxtime", bean.getGetboxtime());
+						obj.put("backchnportime", bean.getBackchnportime());
+						obj.put("backportstorehoustime", bean.getBackportstorehoustime());
+						obj.put("portranstime", bean.getPortranstime());
+						obj.put("transtid", bean.getTranstid());
+						obj.put("downlineovertime", bean.getDownlineovertime());
+						obj.put("railwaydownlinetime", bean.getRailwaydownlinetime());
+						obj.put("fbacknulltime", bean.getFbacknulltime());
+						obj.put("state", bean.getState());
+						obj.put("simg", bean.getSimg());
+						obj.put("img", bean.getImg());
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					array.add(obj);
+				}
+				sResult = array.toString();
+			}
+			else
+				sResult=null;
+			break;	
+		
+		//修改信息
+		case 3:
+			bid  			= new String(req.getParameter("bid").getBytes("ISO8859_1"),"utf-8");
+			getboxspace		= new String(req.getParameter("getboxspace").getBytes("ISO8859_1"),"utf-8");
+			getboxtime		= new String(req.getParameter("getboxtime").getBytes("ISO8859_1"),"utf-8");
+			backchnportime	= new String(req.getParameter("backchnportime").getBytes("ISO8859_1"),"utf-8");
+			backportstorehoustime	= new String(req.getParameter("backportstorehoustime").getBytes("ISO8859_1"),"utf-8");
+			portranstime	= new String(req.getParameter("portranstime").getBytes("ISO8859_1"),"utf-8");
+			transtid		= new String(req.getParameter("transtid").getBytes("ISO8859_1"),"utf-8");
+			downlineovertime	= new String(req.getParameter("downlineovertime").getBytes("ISO8859_1"),"utf-8");
+			railwaydownlinetime		= new String(req.getParameter("railwaydownlinetime").getBytes("ISO8859_1"),"utf-8");
+			fbacknulltime	= new String(req.getParameter("fbacknulltime").getBytes("ISO8859_1"),"utf-8");
+			state			= new String(req.getParameter("state").getBytes("ISO8859_1"),"utf-8");
+			simg			= new String(req.getParameter("simg").getBytes("ISO8859_1"),"utf-8");
+			img				= new String(req.getParameter("img").getBytes("ISO8859_1"),"utf-8");
+			bmid			= Integer.valueOf(req.getParameter("bmid"));
+			
+			sql = "update boxmanageinfo "
+					+ "set getboxspace='" + getboxspace + "'," 
+					+ "getboxtime='"+ getboxtime + "'," 
+					+ "backchnportime='" + backchnportime + "'," 
+					+ "backportstorehoustime='"+ backportstorehoustime + "'," 
+					+ "portranstime='" + portranstime + "',"
+					+ "transtid='" + transtid + "'," 
+					+ "downlineovertime='" + downlineovertime + "',"
+					+ "railwaydownlinetime='" + railwaydownlinetime + "'," 
+					+ "fbacknulltime='"+ fbacknulltime + "'," 
+					+ "state='" + state + "'," 
+					+ "simg='"+ simg + "'," 
+					+ "img='" + img + "' "
+					
+					+ "where bmid='" + bmid + "'";
+
+			dbTool.doDBUpdate(sql);
+			sResult="success";
+			break;		
+		//删除信息
+		case 5:
+			bmid = Integer.valueOf(req.getParameter("bmid"));
+			sql = "delete from boxmanageinfo where bmid='" + bmid + "'";
+			dbTool.doDBUpdate(sql);
+			sResult = "success";
+			break;
+
+		default:
+			break;
+		
+		}
+		
+		pWriter.print(sResult)	;
+		pWriter.flush();
+		pWriter.close();
+	}
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter pWriter = resp.getWriter();
+		
+		String wId = req.getParameter("wid");
+		String wPwd = req.getParameter("wpwd");
+		System.out.println("wid="+wId);
+		System.out.println("wpwd="+wPwd);
+		pWriter.flush();
+		pWriter.close();
+	}
+
+}

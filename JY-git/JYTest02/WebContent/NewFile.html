@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script src="js/jquery.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" href="css/WdatePicker.css" />
+<style type="text/css">
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+	font-size: 1em;
+}
+
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
+
+</style>
+  <script>
+  $( function() {
+//     $( "#day" ).datepicker();
+    $( ".day" ).datepicker({
+    	  dateFormat: "yy年mm月dd日"
+    	});
+  } );
+  function test(){
+	  alert(document.getElementById("day").value);
+  }
+  </script>
+</head>
+<body>
+ 
+    	<input type="text" class="day" name="day" maxlength="10" onblur="test1()">
+    	<script>
+		  function test1(){
+			  alert(document.getElementsByTagName("input")[0].value);
+		  }
+		  </script>
+ 
+ 			<input type="text" placeholder="文章标题" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                        <i class="time-icon"></i>
+</body>
+</html>

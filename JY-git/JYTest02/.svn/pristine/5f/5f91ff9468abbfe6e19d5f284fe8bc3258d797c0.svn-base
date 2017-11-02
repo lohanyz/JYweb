@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="css/semantic/icon.css">
+	<link rel="stylesheet" href="css/semantic/semantic.min.css">
+	<link rel="stylesheet" href="css/semantic/semantic.css">
+	<script src="js/jquery-3.1.0.min.js"></script>
+	<script src="js/semantic.min.js"></script>
+<title>底部内容页</title>
+</head>
+
+
+<body>
+<form name="xx" action="<c:url value='/Up3Servlet'/>" method="post" enctype="multipart/form-data">
+  <table id="tb" border="1">
+	<tr>
+		<td>
+        File：
+      </td>
+		<td>
+        <input type="file" name="file">
+        <button onclick="_del(this);">删除</button>
+      </td>
+	</tr>
+	</table>
+  <br/>
+  <input type="button" onclick="_submit();" value="上传">
+  <input onclick="_add();" type="button" value="增加">
+  </form>
+ </body>
+<script type="text/javascript">
+   function _add(){
+     var tb = document.getElementById("tb");
+     //写入一行
+     var tr = tb.insertRow();
+     //写入列
+     var td = tr.insertCell();
+      //写入数据
+     td.innerHTML="File：";
+     //再声明一个新的td
+     var td2 = tr.insertCell();
+     //写入一个input
+     td2.innerHTML='<input type="file" name="file"/><button onclick="_del(this);">删除</button>';
+   }
+   function _del(btn){
+     var tr = btn.parentNode.parentNode;
+     //alert(tr.tagName);
+     //获取tr在table中的下标
+     var index = tr.rowIndex;
+     //删除
+     var tb = document.getElementById("tb");
+     tb.deleteRow(index);
+   }
+   function _submit(){
+     //遍历所的有文件
+     var files = document.getElementsByName("file");
+     if(files.length==0){
+       alert("没有可以上传的文件");
+       return false;
+     }
+     for(var i=0;i<files.length;i++){
+       if(files[i].value==""){
+         alert("第"+(i+1)+"个文件不能为空");
+         return false;
+       }
+     }
+    document.forms['xx'].submit();
+   }
+ </script>
+</body>
+<script type="text/javascript">
+$('.ui.accordion')
+.accordion()
+;
+
+$('.trigger.example .accordion')
+.accordion({
+  selector: {
+    trigger: '.title .icon'
+  }
+})
+;
+</script>
+</html>

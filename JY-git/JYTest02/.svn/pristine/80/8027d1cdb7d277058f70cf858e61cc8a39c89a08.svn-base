@@ -1,0 +1,119 @@
+<%@page import="cn.jy.entity.Workerinfo"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/skin_/table.css" />
+<link rel="stylesheet" type="text/css" href="../css/WdatePicker.css" />
+<link rel="stylesheet" type="text/css" href="../css/jquery.grid.css" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/semantic/semantic.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/semantic/semantic.css" />
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/semantic.min.js"></script>
+<title>精确查询</title>
+<style>
+	input{
+		width:120px;
+		height:30px;
+	}
+	select{
+		width:100px;
+		height:30px;
+	}
+	.btn{
+		width:60px;
+	}
+	form{
+		border: 1px solid #ddd;
+		padding:5px 0 10px 0;
+	}
+ 	span{
+ 		position:absolute;
+ 		left:5%;
+ 		margin:-8px 0 0 0;
+ 		padding:0 5px 0 5px;
+ 		text-align:center;
+ 		background:white;
+ 	}
+</style>
+</head>
+
+<body>
+<div id="container">
+	<div id="hd"></div>
+    <div id="bd">
+    	<div id="main">
+        	<div class="search-box ue-clear">
+        		<span>查询条件</span>
+        		 <form action="../../JYTest02/port_info?operid=14" method="post"  target="sResult" >
+        		 	<input type="hidden"  id="searchvalue" name="searchvalue">
+        		 	  <table class="search_input" align="center" style="margin:-10px auto;border-collapse:separate;border-spacing:15px 15px; ">
+						<tr>
+	        		 	   <td>
+	        		 	    <label>运输方式:</label>&nbsp;&nbsp;&nbsp;
+	        		 	   </td>
+	        		 	   <td>
+							<select class="ui dropdown" name="lkind" id="lkind">
+							    <option value=" ">不限</option>
+								<option value="trunk">汽运</option>
+								<option value="railway">铁路</option>
+						    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						   </td>
+	        		 	   <td>
+						    <label>ID:</label>&nbsp;&nbsp;&nbsp;
+						   </td>
+	        		 	   <td>
+							<div class="ui input">
+								<input type="text" placeholder=" ID" name="pid" id="pid">
+							</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						   </td>
+	        		 	   <td>
+							<label>业务编号:</label>&nbsp;&nbsp;&nbsp;
+						   </td>
+	        		 	   <td>
+							<div class="ui input">
+								<input type="text" placeholder="业务编号" id="bid" name="bid" style="width:200px;">
+							</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						   </td>
+	        		 	  </tr>
+						</table>
+						<div class="search_input" align="center">
+							<input type="submit" class="btn btn-default" value="搜索" onclick="search();" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="reset" class="btn btn-default" value="重置" />
+						</div>
+						<script type="text/javascript">
+		                	function search(){
+		                		var lkind=document.getElementById("lkind").value; 
+		                		var pid=document.getElementById("pid").value; 
+		                		var bid=document.getElementById("bid").value; 
+		                		var searchvalue = lkind+","+pid+","+bid;
+		                		document.getElementById("searchvalue").value=searchvalue; 
+		                	}
+		                </script>
+
+				</form>
+                <hr width="100%" size="1" color="#ccc" style="margin-top:5px;margin-bottom:0px;">
+                <iframe name="sResult" src="../port_info?operid=2"  width="1150"  height="500"></iframe>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/global.js"></script>
+<script type="text/javascript" src="../js/jquery.select.js"></script>
+<script type="text/javascript" src="../js/core.js"></script>
+<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+<script type="text/javascript" src="../js/jquery.grid.js"></script>
+<script type="text/javascript" src="../js/WdatePicker.js"></script>
+ 
+</html>
