@@ -49,7 +49,8 @@ public class JY_CheckGetgoodsinfo extends HttpServlet{
 	private ArrayList<Getgoodsinfo> list;
 	private ArrayList<Businessinfo> list1;
 	private ArrayList<Goodsinfo> list2;
-	
+	private FtcCenterWebServiceBas bas;
+	private FtcCenterWebServiceBasService basService;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -61,11 +62,11 @@ public class JY_CheckGetgoodsinfo extends HttpServlet{
 		MyConfig 	myConfig=	new MyConfig();
 		JSONArray array = new JSONArray();
 		JSONObject obj = new JSONObject();
-		
 		req.getRequestURL();
 		sOperType			=	req.getParameter("operType"); 
 		nOperType			=	Integer.parseInt(sOperType);
-		
+		basService=new FtcCenterWebServiceBasService();
+		bas=basService.getFtcCenterWebServiceBasPort();
 		switch (nOperType) {
 //		网络更新;
 		case 1:
@@ -134,9 +135,7 @@ public class JY_CheckGetgoodsinfo extends HttpServlet{
 
 		case 2:
 			tmp			=	new String(req.getParameter("gid").getBytes("iso-8859-1"),"utf-8");
-			FtcCenterWebServiceBasService service=new FtcCenterWebServiceBasService();
-			FtcCenterWebServiceBas bas=service.getFtcCenterWebServiceBasPort();
-			bas.getBoxGoods(tmp);
+			
 			
 			if(tmp.contains("-")){
 				bid			=	tmp.substring(0, tmp.indexOf("-"));
@@ -307,7 +306,11 @@ public class JY_CheckGetgoodsinfo extends HttpServlet{
 			sResult="success";
 		
 			break;
-			
+		case 6:
+			bid 		= 	req.getParameter("bid");
+			String str="{\"barcode\": \""+bid+"\"}";
+			String json=bas.getBoxGoods(str);
+			break;
 		default:
 			break;
 		}

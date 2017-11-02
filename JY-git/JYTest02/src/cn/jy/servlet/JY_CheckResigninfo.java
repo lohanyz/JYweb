@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBas;
+import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBasService;
 import cn.jy.entity.Resigninfo;
 import cn.jy.tool.DBTool;
 import cn.jy.tool.MyConfig;
@@ -32,7 +34,8 @@ public class JY_CheckResigninfo extends HttpServlet{
 				   ;
 	
 	private ArrayList<Resigninfo> list;
-	
+	private FtcCenterWebServiceBas bas;
+	private FtcCenterWebServiceBasService basService;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -44,7 +47,8 @@ public class JY_CheckResigninfo extends HttpServlet{
 		req.getRequestURL();
 		sOperType			=	req.getParameter("operType"); 
 		nOperType			=	Integer.parseInt(sOperType);
-		
+		basService = new FtcCenterWebServiceBasService();
+		bas = basService.getFtcCenterWebServiceBasPort();
 		switch (nOperType) {
 		case 1:
 //			bid				=	new String(req.getParameter("bid").getBytes("iso-8859-1"),"utf-8");
@@ -160,6 +164,11 @@ public class JY_CheckResigninfo extends HttpServlet{
 			dbTool.doDBUpdate(sql);
 			sResult="success";
 		
+			break;
+		case 6:
+			bid = req.getParameter("bid");
+			String str = "{\"barcode\": \"" + bid + "\"}";
+			String json = bas.getSeaportGoods(str);
 			break;
 		default:
 			break;

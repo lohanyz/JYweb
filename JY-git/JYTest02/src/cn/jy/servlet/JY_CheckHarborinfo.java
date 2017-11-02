@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBas;
+import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBasService;
 import cn.jy.entity.Harborinfo;
 import cn.jy.tool.DBTool;
 import cn.jy.tool.MyConfig;
@@ -30,7 +32,8 @@ public class JY_CheckHarborinfo extends HttpServlet{
 						sResult="fail"
 						;	
 	ArrayList<Harborinfo> list;
-
+	private FtcCenterWebServiceBas bas;
+	private FtcCenterWebServiceBasService basService;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -40,6 +43,8 @@ public class JY_CheckHarborinfo extends HttpServlet{
 
 		DBTool 		dbTool	=	new DBTool();
 		MyConfig 	myConfig=	new MyConfig();
+		basService=new FtcCenterWebServiceBasService();
+		bas=basService.getFtcCenterWebServiceBasPort();
 		sOperType			=	req.getParameter("operType"); 
 		nOperType			=	Integer.parseInt(sOperType);
 		switch (nOperType) {
@@ -221,7 +226,11 @@ public class JY_CheckHarborinfo extends HttpServlet{
 			dbTool.doDBUpdate(sql);
 			sResult = "success";
 			break;
-
+		case 6:
+			bid 		= 	req.getParameter("bid");
+			String str="{\"barcode\": \""+bid+"\"}";
+			String json=bas.getSeaportGoods(str);
+			break;
 		default:
 			break;
 		

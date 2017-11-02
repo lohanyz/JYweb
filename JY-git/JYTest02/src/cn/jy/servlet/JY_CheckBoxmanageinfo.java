@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBas;
+import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBasService;
 import cn.jy.entity.Boxmanageinfo;
 import cn.jy.tool.DBTool;
 import cn.jy.tool.MyConfig;
@@ -28,6 +30,8 @@ public class JY_CheckBoxmanageinfo extends HttpServlet{
 						portranstime, transtid, downlineovertime,railwaydownlinetime,
 						fbacknulltime,state,simg, img;
 	private int 	bmid;
+	private FtcCenterWebServiceBas bas;
+	private FtcCenterWebServiceBasService basService;
 	private ArrayList<Boxmanageinfo> list;
 
 	@Override
@@ -40,6 +44,8 @@ public class JY_CheckBoxmanageinfo extends HttpServlet{
 		MyConfig 	myConfig=	new MyConfig();
 		sOperType			=	req.getParameter("operType"); 
 		nOperType			=	Integer.parseInt(sOperType);
+		basService=new FtcCenterWebServiceBasService();
+		bas=basService.getFtcCenterWebServiceBasPort();
 		switch (nOperType) {
 		//信息新增
 		case 1:
@@ -232,7 +238,10 @@ public class JY_CheckBoxmanageinfo extends HttpServlet{
 			dbTool.doDBUpdate(sql);
 			sResult = "success";
 			break;
-
+		case 6:
+			bid 		= 	req.getParameter("bid");
+			String str="{\"barcode\": \""+bid+"\"}";
+			String json=bas.getBoxGoods(str);
 		default:
 			break;
 		
