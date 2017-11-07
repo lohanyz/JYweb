@@ -203,7 +203,7 @@ public class JY_CheckHarborinfo extends HttpServlet {
 		case 6:
 			bid = req.getParameter("bid");
 			String str = "{\"barcode\": \"" + bid + "\"}";
-			String json = bas.getSeaportGoods(str);
+			sResult = bas.getSeaportGoods(str);
 			break;
 		default:
 			break;
