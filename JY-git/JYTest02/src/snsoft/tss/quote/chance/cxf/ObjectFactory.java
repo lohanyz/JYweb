@@ -33,13 +33,17 @@ public class ObjectFactory {
     private final static QName _GetPortGoods_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getPortGoods");
     private final static QName _GetSeaportGoods_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getSeaportGoods");
     private final static QName _SavePickUpGoodsResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "savePickUpGoodsResponse");
+    private final static QName _GetLoadUpPathResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getLoadUpPathResponse");
+    private final static QName _SaveAttachment_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "saveAttachment");
     private final static QName _GetBoxGoodsResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getBoxGoodsResponse");
     private final static QName _SavePortGoods_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "savePortGoods");
     private final static QName _SaveSignGoods_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "saveSignGoods");
     private final static QName _SavePickUpGoods_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "savePickUpGoods");
     private final static QName _GetSeaportGoodsResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getSeaportGoodsResponse");
     private final static QName _GetSignGoodsResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getSignGoodsResponse");
+    private final static QName _SaveAttachmentResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "saveAttachmentResponse");
     private final static QName _SavePortGoodsResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "savePortGoodsResponse");
+    private final static QName _GetLoadUpPath_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getLoadUpPath");
     private final static QName _GetSignGoods_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "getSignGoods");
     private final static QName _SaveBoxGoods_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "saveBoxGoods");
     private final static QName _SaveSeaportGoodsResponse_QNAME = new QName("http://cxf.chance.quote.tss.snsoft/", "saveSeaportGoodsResponse");
@@ -125,6 +129,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetLoadUpPathResponse }
+     * 
+     */
+    public GetLoadUpPathResponse createGetLoadUpPathResponse() {
+        return new GetLoadUpPathResponse();
+    }
+
+    /**
+     * Create an instance of {@link SaveAttachment }
+     * 
+     */
+    public SaveAttachment createSaveAttachment() {
+        return new SaveAttachment();
+    }
+
+    /**
      * Create an instance of {@link GetBoxGoodsResponse }
      * 
      */
@@ -173,11 +193,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SaveAttachmentResponse }
+     * 
+     */
+    public SaveAttachmentResponse createSaveAttachmentResponse() {
+        return new SaveAttachmentResponse();
+    }
+
+    /**
      * Create an instance of {@link SavePortGoodsResponse }
      * 
      */
     public SavePortGoodsResponse createSavePortGoodsResponse() {
         return new SavePortGoodsResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetLoadUpPath }
+     * 
+     */
+    public GetLoadUpPath createGetLoadUpPath() {
+        return new GetLoadUpPath();
     }
 
     /**
@@ -294,6 +330,24 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetLoadUpPathResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://cxf.chance.quote.tss.snsoft/", name = "getLoadUpPathResponse")
+    public JAXBElement<GetLoadUpPathResponse> createGetLoadUpPathResponse(GetLoadUpPathResponse value) {
+        return new JAXBElement<GetLoadUpPathResponse>(_GetLoadUpPathResponse_QNAME, GetLoadUpPathResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveAttachment }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://cxf.chance.quote.tss.snsoft/", name = "saveAttachment")
+    public JAXBElement<SaveAttachment> createSaveAttachment(SaveAttachment value) {
+        return new JAXBElement<SaveAttachment>(_SaveAttachment_QNAME, SaveAttachment.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetBoxGoodsResponse }{@code >}}
      * 
      */
@@ -348,12 +402,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SaveAttachmentResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://cxf.chance.quote.tss.snsoft/", name = "saveAttachmentResponse")
+    public JAXBElement<SaveAttachmentResponse> createSaveAttachmentResponse(SaveAttachmentResponse value) {
+        return new JAXBElement<SaveAttachmentResponse>(_SaveAttachmentResponse_QNAME, SaveAttachmentResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SavePortGoodsResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://cxf.chance.quote.tss.snsoft/", name = "savePortGoodsResponse")
     public JAXBElement<SavePortGoodsResponse> createSavePortGoodsResponse(SavePortGoodsResponse value) {
         return new JAXBElement<SavePortGoodsResponse>(_SavePortGoodsResponse_QNAME, SavePortGoodsResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetLoadUpPath }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://cxf.chance.quote.tss.snsoft/", name = "getLoadUpPath")
+    public JAXBElement<GetLoadUpPath> createGetLoadUpPath(GetLoadUpPath value) {
+        return new JAXBElement<GetLoadUpPath>(_GetLoadUpPath_QNAME, GetLoadUpPath.class, null, value);
     }
 
     /**

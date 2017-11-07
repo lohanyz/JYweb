@@ -47,32 +47,6 @@ public class JY_CheckPortinfo extends HttpServlet {
 		case 1:
 			bid = new String(req.getParameter("bid").getBytes("ISO8859_1"), "utf-8");
 			gid = new String(req.getParameter("gid").getBytes("ISO8859_1"), "utf-8");
-			// inporttime = new
-			// String(req.getParameter("inporttime").getBytes("ISO8859_1"),"utf-8");
-			// ctime = new String(req.getParameter("ctime").getBytes("ISO8859_1"),"utf-8");
-			// intime = new
-			// String(req.getParameter("intime").getBytes("ISO8859_1"),"utf-8");
-			// pboxtime = new
-			// String(req.getParameter("pboxtime").getBytes("ISO8859_1"),"utf-8");
-			// state = new String(req.getParameter("state").getBytes("ISO8859_1"),"utf-8");
-			// simg = new String(req.getParameter("simg").getBytes("ISO8859_1"),"utf-8");
-			// lkind = new String(req.getParameter("lkind").getBytes("ISO8859_1"),"utf-8");
-			// reporttime = new
-			// String(req.getParameter("reporttime").getBytes("ISO8859_1"),"utf-8");
-			// classorderid = new
-			// String(req.getParameter("classorderid").getBytes("ISO8859_1"),"utf-8");
-			// tid = new String(req.getParameter("tid").getBytes("ISO8859_1"),"utf-8");
-			// tkind = new String(req.getParameter("tkind").getBytes("ISO8859_1"),"utf-8");
-			// oid = new String(req.getParameter("oid").getBytes("ISO8859_1"),"utf-8");
-			// gtime = new String(req.getParameter("gtime").getBytes("ISO8859_1"),"utf-8");
-			// stime = new String(req.getParameter("stime").getBytes("ISO8859_1"),"utf-8");
-			// wid = new String(req.getParameter("wid").getBytes("ISO8859_1"),"utf-8");
-			// percount = Integer.valueOf(req.getParameter("percount"));
-			// tcount = Integer.valueOf(req.getParameter("tcount"));
-			// islean = Boolean.valueOf(req.getParameter("islean"));
-			// perweight = Double.valueOf(req.getParameter("perweight"));
-			// tformatweight = Double.valueOf(req.getParameter("tformatweight"));
-
 			inporttime = req.getParameter("inporttime");
 			ctime = req.getParameter("ctime");
 			intime = req.getParameter("intime");
@@ -94,23 +68,55 @@ public class JY_CheckPortinfo extends HttpServlet {
 			classorderid = req.getParameter("classorderid");
 			wid = req.getParameter("wid");
 
-			sql = "insert into portinfo(bid,gid,inporttime,ctime,intime, pboxtime,"
-					+ "state,simg,lkind,reporttime,classorderid,tid,tkind,oid,gtime,stime,"
-					+ " percount,tcount,islean,perweight,tformatweight) " + "values(" + "'" + bid + "'," + "'" + gid
-					+ "'," + "'" + inporttime + "'," + "'" + ctime + "'," + "'" + intime + "'," + "'" + pboxtime + "',"
-					+ "'" + state + "'," + "'" + simg + "'," + "'" + lkind + "'," + "'" + reporttime + "'," + "'"
-					+ classorderid + "'," + "'" + tid + "'," + "'" + tkind + "'," + "'" + oid + "'," + "'" + gtime
-					+ "'," + "'" + stime + "'," + "'" + percount + "'," + "'" + tcount + "'," + "'" + islean + "',"
-					+ "'" + perweight + "'," + "'" + tformatweight + "')";
-			System.out.println(sql);
-			dbTool.doDBUpdate(sql);
-			sql = "insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime)values(" + "'" + wid + "',"
-					+ "'null'," + "'" + bid + "'," + "'" + gid + "','港口货物操作','新增操作'," + "'"
-					+ myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分") + "'" + ")";
-			System.out.println(sql);
+			JSONObject obja = new JSONObject();
+			JSONObject objb = new JSONObject();
+			obja.put("ptoportdate", inporttime);
+			obja.put("preinvoicedate_port", ctime);
+			obja.put("pjinchangdate", intime);
+			obja.put("ppackingtime", pboxtime);
+			obja.put("sfpxpz", islean);
+			obja.put("bssj", reporttime);
+			obja.put("fcchgk", tid);
+			obja.put("dcjsgkdz", percount);
+			obja.put("dcdsgkdz", perweight);
+			obja.put("dsgkdz", tcount);
+			obja.put("startdate", stime);
+			obja.put("blhtl", classorderid);
 
-			dbTool.doDBUpdate(sql);
-			sResult = "success";
+			obja.put("dgtraintype", tkind);
+			obja.put("dgtrainwaybillno", oid);
+
+			obja.put("cargostatusport", state);
+			obja.put("dgtrainwagonkg", tformatweight);
+			// obja.put("dgtrainwagonno", );铁路车皮号
+			// obja.put("dgtrainstartdate", );发车时间（港口信息）
+			// obja.put("dgtrainsinglenum", );单车件数
+			// obja.put("dgtrainsingleton", );单车吨数
+			objb.put("barcode", bid);
+			objb.put("body", obja);
+			System.out.println(objb.toString());
+			obja = JSONObject.fromObject(bas.savePortGoods(objb.toString()));
+			if (obja.get("Head").equals("0000")) {
+				sql = "insert into portinfo(bid,gid,inporttime,ctime,intime, pboxtime,"
+						+ "state,simg,lkind,reporttime,classorderid,tid,tkind,oid,gtime,stime,"
+						+ " percount,tcount,islean,perweight,tformatweight) " + "values(" + "'" + bid + "'," + "'" + gid
+						+ "'," + "'" + inporttime + "'," + "'" + ctime + "'," + "'" + intime + "'," + "'" + pboxtime
+						+ "'," + "'" + state + "'," + "'" + simg + "'," + "'" + lkind + "'," + "'" + reporttime + "',"
+						+ "'" + classorderid + "'," + "'" + tid + "'," + "'" + tkind + "'," + "'" + oid + "'," + "'"
+						+ gtime + "'," + "'" + stime + "'," + "'" + percount + "'," + "'" + tcount + "'," + "'" + islean
+						+ "'," + "'" + perweight + "'," + "'" + tformatweight + "')";
+				System.out.println(sql);
+				dbTool.doDBUpdate(sql);
+				sql = "insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime)values(" + "'" + wid + "',"
+						+ "'null'," + "'" + bid + "'," + "'" + gid + "','港口货物操作','新增操作'," + "'"
+						+ myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分") + "'" + ")";
+				System.out.println(sql);
+
+				dbTool.doDBUpdate(sql);
+				sResult = "success";
+			} else {
+				sResult = "fail";
+			}
 			break;
 
 		// 信息查询
@@ -255,7 +261,7 @@ public class JY_CheckPortinfo extends HttpServlet {
 		case 6:
 			bid = req.getParameter("bid");
 			String str = "{\"barcode\": \"" + bid + "\"}";
-			String json = bas.getSeaportGoods(str);
+			String json = bas.getPortGoods(str);
 			break;
 		default:
 			break;

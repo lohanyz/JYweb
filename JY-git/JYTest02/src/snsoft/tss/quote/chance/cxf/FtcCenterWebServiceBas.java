@@ -59,6 +59,20 @@ public interface FtcCenterWebServiceBas {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "saveAttachment", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.SaveAttachment")
+    @ResponseWrapper(localName = "saveAttachmentResponse", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.SaveAttachmentResponse")
+    public String saveAttachment(
+        @WebParam(name = "jsonString", targetNamespace = "")
+        String jsonString);
+
+    /**
+     * 
+     * @param jsonString
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "saveBoxGoods", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.SaveBoxGoods")
     @ResponseWrapper(localName = "saveBoxGoodsResponse", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.SaveBoxGoodsResponse")
     public String saveBoxGoods(
@@ -146,6 +160,20 @@ public interface FtcCenterWebServiceBas {
     @RequestWrapper(localName = "getSeaportGoods", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.GetSeaportGoods")
     @ResponseWrapper(localName = "getSeaportGoodsResponse", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.GetSeaportGoodsResponse")
     public String getSeaportGoods(
+        @WebParam(name = "jsonString", targetNamespace = "")
+        String jsonString);
+
+    /**
+     * 
+     * @param jsonString
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getLoadUpPath", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.GetLoadUpPath")
+    @ResponseWrapper(localName = "getLoadUpPathResponse", targetNamespace = "http://cxf.chance.quote.tss.snsoft/", className = "snsoft.tss.quote.chance.cxf.GetLoadUpPathResponse")
+    public String getLoadUpPath(
         @WebParam(name = "jsonString", targetNamespace = "")
         String jsonString);
 
