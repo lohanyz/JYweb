@@ -58,6 +58,7 @@ public class JY_Web_Logs extends HttpServlet{
 		switch (operId) {
 		//	操作内容;
 		case 1:
+			System.out.println("dss");
 			sql			=	"select * from Editinfo order by eid limit 0,"+nItemLimit;
 			list		=	dbTool.doDBQueryEditinfo(sql);
 			session.setAttribute("listLogs", list);

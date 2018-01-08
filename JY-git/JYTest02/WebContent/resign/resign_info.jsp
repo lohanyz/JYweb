@@ -56,11 +56,11 @@
         		 	  <table class="search_input" align="center" style="margin:-10px auto;border-collapse:separate;border-spacing:15px 15px; ">
 	        		 	<tr>
 	        		 	   <td>
-	        		 	    <label>签收ID:</label>&nbsp;&nbsp;&nbsp;
+	        		 	    <label>签收人:</label>&nbsp;&nbsp;&nbsp;
 	        		 	   </td>
 	        		 	   <td>
 							<div class="ui input">
-								<input type="text" placeholder="箱管ID" name="rid" id="rid">
+								<input type="text" placeholder="签收人" name="rid" id="rid" style="font-size:90%">
 							</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						   </td>
 	        		 	   <td>
@@ -68,7 +68,7 @@
 						   </td>
 	        		 	   <td>
 							<div class="ui input">
-								<input type="text" placeholder="业务编号" id="bid" name="bid" >
+								<input type="text" placeholder="业务编号" id="bid" name="bid" style = "font-size:90%">
 							</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						   </td>
 						   <td>
@@ -76,7 +76,7 @@
 						   </td>
 	        		 	   <td>
 							<div class="ui input">
-								<input type="text" placeholder="货物编号" id="gid" name="gid" >
+								<input type="text" placeholder="货物编号" id="gid" name="gid" style = "font-size:90%">
 							</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						   </td>
 	        		 	  </tr>

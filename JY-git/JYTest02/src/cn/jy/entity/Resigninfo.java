@@ -1,51 +1,67 @@
 package cn.jy.entity;
 
 public class Resigninfo {
-	private int rid;
-	private String bid;
-	private String gid;
-	private String state;
-	private String simg;
-	public Resigninfo(int rid, String bid,String gid, String state, String simg) {
+	private int _id;
+	private String barcode;
+	private String receiptdate;
+	private String cargostatussign;
+	private String img;
+	private String busiinvcode;
+	private String wid;
+	public Resigninfo(int _id, String barcode,String receiptdate, String cargostatussign, String img, String busiinvcode, String wid) {
 		super();
-		this.rid = rid;
-		this.gid = gid;
-		this.bid = bid;
-		this.state = state;
-		this.simg = simg;
+		this._id = _id;
+		this.barcode = barcode;
+		this.receiptdate = receiptdate;
+		this.cargostatussign = cargostatussign;
+		this.img = img;
+		this.busiinvcode = busiinvcode;
+		this.wid = wid;
 	}
 	public Resigninfo() {
 	
 	}
-	public String getGid() {
-		return gid;
+	public int get_id() {
+		return _id;
 	}
-	public void setGid(String gid) {
-		this.gid = gid;
+	public void set_id(int _id) {
+		this._id = _id;
 	}
-	public int getRid() {
-		return rid;
+	public String getBarcode() {
+		return barcode;
 	}
-	public void setRid(int rid) {
-		this.rid = rid;
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
 	}
-	public String getBid() {
-		return bid;
+	public String getReceiptdate() {
+		return receiptdate;
 	}
-	public void setBid(String bid) {
-		this.bid = bid;
+	public void setReceiptdate(String receiptdate) {
+		this.receiptdate = receiptdate;
 	}
-	public String getState() {
-		return state;
+	public String getCargostatussign() {
+		return cargostatussign;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setCargostatussign(String cargostatussign) {
+		this.cargostatussign = cargostatussign;
 	}
-	public String getSimg() {
-		return simg;
+	public String getImg() {
+		return img;
 	}
-	public void setSimg(String simg) {
-		this.simg = simg;
+	public void setImg(String img) {
+		this.img = img;
 	}
-
+	public String getBusiinvcode() {
+		return busiinvcode;
+	}
+	public void setBusiinvcode(String busiinvcode) {
+		this.busiinvcode = busiinvcode;
+	}
+	public String getWid() {
+		return wid;
+	}
+	public void setWid(String wid) {
+		this.wid = wid;
+	}
+	
 }

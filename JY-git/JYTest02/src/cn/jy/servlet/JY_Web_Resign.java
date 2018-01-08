@@ -60,8 +60,13 @@ public class JY_Web_Resign extends HttpServlet{
 		
 			break;
 		case 2:
-			sql			=	"select * from resigninfo order by rid limit 0,"+nItemLimit;
+			sql			=	"select signinfo.*,workerinfo.wname from signinfo,workerinfo where signinfo.wid=workerinfo.wid order by receiptdate desc limit 0,"+nItemLimit;
 			list		=	dbTool.doDBQueryResigninfo(sql);
+			if(list.size()<nItemLimit) {
+				session.setAttribute("theLastPage", "true");
+			}else {
+				session.setAttribute("theLastPage", "false");
+			}
 			session.setAttribute("listResign", list);
 			session.setAttribute("pageCurrent", "0");
 			session.setAttribute("searchvalue", " ");
@@ -70,9 +75,9 @@ public class JY_Web_Resign extends HttpServlet{
 		//单条详情
 		case 3:
 			rid 		= 	Integer.valueOf(req.getParameter("rid"));
-			sql			=	"select * from resigninfo where rid='"+rid+"'";
+			sql			=	"select signinfo.*,workerinfo.wname from signinfo,workerinfo where signinfo.wid=workerinfo.wid and signinfo._id='"+rid+"'";
 			list		=	dbTool.doDBQueryResigninfo(sql);
-			simg		=	list.get(0).getSimg();
+			simg		=	list.get(0).getImg();
 			imgs		= 	simg.split("_");
 			session.setAttribute("imgs", imgs);
 			session.setAttribute("listResign", list);
@@ -90,19 +95,19 @@ public class JY_Web_Resign extends HttpServlet{
 			sPageCurrent 	= 	req.getParameter("pageCurrent");
 			pageCurrent 	= 	Integer.parseInt(sPageCurrent);
 			rid 		= 	Integer.valueOf(req.getParameter("rid"));
-			sql			=	"delete from resigninfo where rid='"+rid+"'";
+			sql			=	"delete from signinfo where _id='"+rid+"'";
 			dbTool.doDBUpdate(sql);		
 			
-			sql="insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime) values(" +
-					"'"+user.getWid()+"'," +
-					"'"+user.getWname()+"'," +
-					"'"+req.getParameter("bid")+"'," +
-					"'"+req.getParameter("gid")+"'," +
-					"'签收操作'," +
-					"'删除编号为"+rid+"的签收信息',"+
-					"'"+myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分")+"'" +
-					")";
-			dbTool.doDBUpdate(sql);
+//			sql="insert into editinfo(wid,wname,bid,gid,operkind,editkind,edittime) values(" +
+//					"'"+user.getWid()+"'," +
+//					"'"+user.getWname()+"'," +
+//					"'"+req.getParameter("bid")+"'," +
+//					"'"+req.getParameter("gid")+"'," +
+//					"'签收操作'," +
+//					"'删除编号为"+rid+"的签收信息',"+
+//					"'"+myConfig.getCurrentTime("yyyy年MM月dd日HH时mm分")+"'" +
+//					")";
+//			dbTool.doDBUpdate(sql);
 			
 			str				=	searchvalue+" ";
 			System.out.println(pageCurrent);
@@ -110,18 +115,23 @@ public class JY_Web_Resign extends HttpServlet{
 				tmp = "";
 			} else {
 				strs = str.split(",");
-				tmp = " where  rid like '" + "%" + strs[0] + "%"
-						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
-						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+				tmp = " where  _id like '" + "%" + strs[0] + "%"
+						+ "' and  busiinvcode like '" + "%" + strs[1].trim() + "%"
+						+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
 						+ "'";
 			}
 			if (pageCurrent >= 0) {
 				pageCount = (pageCurrent);
 				itemCount = pageCount * nItemLimit;
-				sql = "select * from resigninfo " + tmp + " order by rid limit " + itemCount + "," + nItemLimit;
+				sql = "select * from signinfo " + tmp + " order by receiptdate desc limit " + itemCount + "," + nItemLimit;
 				list = dbTool.doDBQueryResigninfo(sql);
 				nSize = list.size();
 				if (nSize > 0) {
+					if(list.size()<nItemLimit) {
+						session.setAttribute("theLastPage", "true");
+					}else {
+						session.setAttribute("theLastPage", "false");
+					}
 					session.setAttribute("listResign", list);
 					session.setAttribute("pageCurrent", String.valueOf(pageCount));
 					session.setAttribute("searchvalue", searchvalue);
@@ -134,7 +144,7 @@ public class JY_Web_Resign extends HttpServlet{
 			rid = Integer.valueOf(req.getParameter("rid"));
 			sql			=	"select * from resigninfo where rid='"+rid+"'";
 			list		=	dbTool.doDBQueryResigninfo(sql);
-			simg		=	list.get(0).getSimg();
+			simg		=	list.get(0).getImg();
 			imgs		=	simg.split("_");
 			session.setAttribute("imgs", imgs);
 			session.setAttribute("listResign", list);
@@ -287,21 +297,31 @@ public class JY_Web_Resign extends HttpServlet{
 			pageCurrent		=	Integer.parseInt(sPageCurrent);
 			
 			if (str.trim().equals("")) {
-				tmp		=	"";
+				tmp		=	" where signinfo.wid=workerinfo.wid ";
 			}else{
 				strs = str.split(",");
-				tmp = " where  rid like '" + "%" + strs[0] + "%"
-						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
-						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+				if(strs[0].trim().equals("")) {
+				tmp = " where signinfo.wid=workerinfo.wid and busiinvcode like '" + "%" + strs[1].trim() + "%"
+						+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
 						+ "'";
+				}else {
+					tmp = " where signinfo.wid=workerinfo.wid and wname='"+strs[0].trim()+"' and busiinvcode like '" + "%" + strs[1].trim() + "%"
+							+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
+							+ "'";
+				}
 			}
 			if(pageCurrent>0){
 				pageCount	=	(pageCurrent-1);
 				itemCount	=	pageCount*nItemLimit;
-				sql			=	"select * from resigninfo "+tmp+" order by rid limit "+itemCount+","+nItemLimit;
+				sql			=	"select signinfo.*,workerinfo.wname from signinfo,workerinfo "+tmp+" order by receiptdate desc limit "+itemCount+","+nItemLimit;
 				list		=	dbTool.doDBQueryResigninfo(sql);
 				nSize		=	list.size();
-				if(nSize>0){					
+				if(nSize>0){	
+					if(list.size()<nItemLimit) {
+						session.setAttribute("theLastPage", "true");
+					}else {
+						session.setAttribute("theLastPage", "false");
+					}
 					session.setAttribute("listResign", list);
 					session.setAttribute("pageCurrent", String.valueOf(pageCount));
 					session.setAttribute("searchvalue", searchvalue);
@@ -317,21 +337,31 @@ public class JY_Web_Resign extends HttpServlet{
 			pageCurrent		=	Integer.parseInt(sPageCurrent);
 			
 			if (str.trim().equals("")) {
-				tmp		=	"";
+				tmp		=	" where signinfo.wid=workerinfo.wid ";
 			}else{
 				strs = str.split(",");
-				tmp = " where  rid like '" + "%" + strs[0] + "%"
-						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
-						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+				if(strs[0].trim().equals("")) {
+				tmp = " where signinfo.wid=workerinfo.wid and busiinvcode like '" + "%" + strs[1].trim() + "%"
+						+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
 						+ "'";
+				}else {
+					tmp = " where signinfo.wid=workerinfo.wid and wname='"+strs[0].trim()+"' and busiinvcode like '" + "%" + strs[1].trim() + "%"
+							+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
+							+ "'";
+				}
 			}
 			if(pageCurrent>=0){
 				pageCount	=	(pageCurrent+1);
 				itemCount	= 	pageCount*nItemLimit;
-				sql			=	"select * from resigninfo "+tmp+" order by rid limit "+itemCount+","+nItemLimit;
+				sql			=	"select signinfo.*,workerinfo.wname from signinfo,workerinfo "+tmp+" order by receiptdate desc limit "+itemCount+","+nItemLimit;
 				list		=	dbTool.doDBQueryResigninfo(sql);
 				nSize		=	list.size();
 				if(nSize>0){					
+					if(list.size()<nItemLimit) {
+						session.setAttribute("theLastPage", "true");
+					}else {
+						session.setAttribute("theLastPage", "false");
+					}
 					session.setAttribute("listResign", list);
 					session.setAttribute("pageCurrent", String.valueOf(pageCount));
 					session.setAttribute("searchvalue", searchvalue);
@@ -348,26 +378,43 @@ public class JY_Web_Resign extends HttpServlet{
 			pageCurrent		=	Integer.parseInt(sPageCurrent);
 
 			if (str.trim().equals("")) {
-				tmp		=	"";
+				tmp		=	" where signinfo.wid=workerinfo.wid ";
 			}else{
 				strs = str.split(",");
-				tmp = " where  rid like '" + "%" + strs[0] + "%"
-						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
-						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+				if(strs[0].trim().equals("")) {
+				tmp = " where signinfo.wid=workerinfo.wid and busiinvcode like '" + "%" + strs[1].trim() + "%"
+						+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
 						+ "'";
+				}else {
+					tmp = " where signinfo.wid=workerinfo.wid and wname='"+strs[0].trim()+"' and busiinvcode like '" + "%" + strs[1].trim() + "%"
+							+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
+							+ "'";
+				}
 			}
 			if (pageCurrent >= 0) {
 				pageCount = (pageCurrent - 1);
+				do {
 				itemCount = pageCount * nItemLimit;
-				sql = "select * from resigninfo " + tmp + " order by rid limit " + itemCount + "," + nItemLimit;
+				sql = "select signinfo.*,workerinfo.wname from signinfo,workerinfo " + tmp + " order by receiptdate desc limit " + itemCount + "," + nItemLimit;
+				System.out.println(sql);
 				list = dbTool.doDBQueryResigninfo(sql);
 				nSize = list.size();
+				if(nSize==0) {
+					pageCount--;
+				}
+				}while(nSize==0);
 				if (nSize > 0) {
+					if(list.size()<nItemLimit) {
+						session.setAttribute("theLastPage", "true");
+					}else {
+						session.setAttribute("theLastPage", "false");
+					}
 					session.setAttribute("listResign", list);
 					session.setAttribute("pageCurrent", String.valueOf(pageCount));
 					session.setAttribute("searchvalue", searchvalue);
 					sResult = "resign/resign_all.jsp";
 				}
+				
 			}
 			break;
 			// 14.综合在一个页面，多条件查询
@@ -375,17 +422,27 @@ public class JY_Web_Resign extends HttpServlet{
 			searchvalue = new String(req.getParameter("searchvalue").getBytes( "ISO8859_1"), "utf-8");
 			str = searchvalue + " ";
 			if (str.trim().equals("")) {
-				tmp = "";
+				tmp = " where signinfo.wid=workerinfo.wid ";
 			} else {
 				strs = str.split(",");
-				tmp = " where  rid like '" + "%" + strs[0] + "%"
-						+ "' and  bid like '" + "%" + strs[1].trim() + "%"
-						+ "' and  gid like '" + "%" + strs[2].trim() + "%"
+				if(strs[0].trim().equals("")) {
+				tmp = " where signinfo.wid=workerinfo.wid and busiinvcode like '" + "%" + strs[1].trim() + "%"
+						+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
 						+ "'";
-				System.out.println(tmp);
+				}else {
+					tmp = " where signinfo.wid=workerinfo.wid and wname='"+strs[0].trim()+"' and busiinvcode like '" + "%" + strs[1].trim() + "%"
+							+ "' and  barcode like '" + "%" + strs[2].trim() + "%"
+							+ "'";
+				}
 			}
-			sql = "select * from resigninfo  " + tmp + " order by rid limit 0," + nItemLimit;
+			sql = "select signinfo.*,workerinfo.wname from signinfo,workerinfo  " + tmp + " order by receiptdate desc limit 0," + nItemLimit;
+			System.out.println(sql);
 			list = dbTool.doDBQueryResigninfo(sql);
+			if(list.size()<nItemLimit) {
+				session.setAttribute("theLastPage", "true");
+			}else {
+				session.setAttribute("theLastPage", "false");
+			}
 			session.setAttribute("listResign", list);
 			session.setAttribute("pageCurrent", "0");
 			session.setAttribute("searchvalue", searchvalue);

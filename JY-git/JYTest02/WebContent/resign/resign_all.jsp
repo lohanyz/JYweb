@@ -27,6 +27,7 @@
 	ArrayList<Resigninfo> list 			= 	(ArrayList<Resigninfo>) session.getAttribute("listResign");
 	String 				  pageCurrent	=	(String)session.getAttribute("pageCurrent");
 	String 				  searchvalue	=	(String)session.getAttribute("searchvalue");
+	String 				  theLastPage	=	(String)session.getAttribute("theLastPage");
 	int 				  nPageCurrent	=	Integer.parseInt(pageCurrent)+1;
 %>
 </head>
@@ -42,7 +43,7 @@
 </style>
 <script type="text/javascript">
 
-	var id = setTimeout('loadPage()',1000);  
+	var id = setTimeout('loadPage()',100);  
 	function loadPage() {  
 	 // 取得文档载入状态，如果载入完成，则readystate='complete'  
  	 // 根据这个可以定时去获取文档载入状态，来实现页面载入等待效果  
@@ -77,10 +78,11 @@
 							<thead align="center">
 								<tr align="center">
 									<th>&nbsp;&nbsp;</th>
-									<th>签收ID</th>
 									<th>业务编号</th>
 									<th>货物编号</th>
 									<th>状态</th>
+									<th>签收人</th>
+									<th>签收时间</th>
 									<th colspan="3">操作 </th>
 								</tr>
 							</thead>
@@ -93,18 +95,19 @@
 								%>
 								<tr align="center">
 									<td><input type="checkbox" id="cbItem" name="cbItem"
-										value="<%=list.get(i).getRid()%>" /></td>
-									<td ><%=list.get(i).getRid()%></td>
-									<td ><%=list.get(i).getBid() %></td>
-									<td ><%=list.get(i).getGid() %></td>
-									<td ><%=list.get(i).getState()%></td>
-   									<td ><a href="../../JYTest02/resign_info?operid=3&rid=<%=list.get(i).getRid()%>" title="查看">
+										value="<%=list.get(i).get_id()%>" /></td>
+									<td ><%=list.get(i).getBusiinvcode() %></td>
+									<td ><%=list.get(i).getBarcode() %></td>
+									<td ><%=list.get(i).getCargostatussign()%></td>
+									<td ><%=list.get(i).getWid()%></td>
+									<td ><%=list.get(i).getReceiptdate()%></td>
+   									<td ><a href="../../JYTest02/resign_info?operid=3&rid=<%=list.get(i).get_id()%>" title="查看">
 										<i class="large grey content icon"></i>
 									</a></td>
-									<td ><a href="../../JYTest02/resign_info?operid=5&rid=<%=list.get(i).getRid()%>" title="修改">
+									<%-- <td ><a href="../../JYTest02/resign_info?operid=5&rid=<%=list.get(i).get_id()%>" title="修改">
 										<i class="large grey edit icon"></i>
-									</a></td>
-									<td ><a href="javascript:if(confirm('确认删除吗?'))window.location='../../JYTest02/resign_info?operid=4&rid=<%=list.get(i).getRid()%>&bid=<%=list.get(i).getBid()%>&gid=<%=list.get(i).getGid()%>&pageCurrent=<%=pageCurrent %>&searchvalue=<%=searchvalue%>'" title="删除">
+									</a></td> --%>
+									<td ><a href="javascript:if(confirm('确认删除吗?'))window.location='../../JYTest02/resign_info?operid=4&rid=<%=list.get(i).get_id()%>&bid=<%=list.get(i).getBusiinvcode()%>&gid=<%=list.get(i).getBarcode()%>&pageCurrent=<%=pageCurrent %>&searchvalue=<%=searchvalue%>'" title="删除">
 										<i class="large grey trash outline icon"></i>
 									</a></td>
 								</tr>
@@ -136,8 +139,12 @@
 							}
 						
 						</script>
-						
+						<% 
+							if(!theLastPage.equals("true")){
+						%>
 						<input type="button" class="btn btn-default btn-sm " style="float:right;width:100px;margin-right:40px" value="下页" onclick="javascript:location.href='../../JYTest02/resign_info?operid=11&pageCurrent=<%=pageCurrent %>&searchvalue=<%=searchvalue%>'">
+						<%}
+						%> 
 						<% 
 							if(nPageCurrent>1){
 						%>

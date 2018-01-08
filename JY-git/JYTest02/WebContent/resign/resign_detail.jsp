@@ -73,7 +73,7 @@
 // 	String path="../resign/images/"+imgs[0]+"_";
 //   	String path="D:/java_dev/MyWorkSpace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/JYTest02/photo/"+imgs[0]+"/resign/"+imgs[0]+"_"+imgs[1]+"_" ;
 //   	String path="http:///localhost:8080/JYTest02/photo/"+imgs[0]+"/resign/"+imgs[0]+"_"+imgs[1]+"_" ;
-  	String path="http:///localhost:8080/JYTest02/photo/"+list.get(0).getBid()+"/resign/";
+  	String path="http:///localhost:8080/JYTest02/photo/"+list.get(0).getBusiinvcode()+"/resign/";
 
 
 	//	每行信息;
@@ -85,19 +85,19 @@
 			<div id="b_info">
 				<table style="margin: 0 0 0 0px; border-collapse: separate; border-spacing: 10px 15px;">
 					<tr>
-						<td><label>签收ID：</label></td>
-						<td><input type="text" disabled="disabled" value="<%=info.getRid() %>"></td>
+						<td><label>签收人：</label></td>
+						<td><input type="text" disabled="disabled" value="<%=info.getWid() %>"></td>
 						<td><label>业务编号：</label></td>
-						<td><input type="text" disabled="disabled" value="<%=info.getBid() %>"></td>
+						<td><input type="text" disabled="disabled" value="<%=info.getBusiinvcode() %>"></td>
 						<td><label>货物编号：</label></td>
-						<td><input type="text" disabled="disabled" value="<%=info.getGid() %>"></td>
+						<td><input type="text" disabled="disabled" value="<%=info.getBarcode() %>"></td>
 					</tr>
 					<tr>
 						<td colspan="4"><label>状态：</label></td>
 					</tr>
 					<tr>
 						<td colspan="4">
-							  <textarea  name="state"  disabled="disabled" id="gstate"class="form-control" rows="3" style="width:500px;"><%=info.getState() %></textarea>
+							  <textarea  name="state"  disabled="disabled" id="gstate"class="form-control" rows="3" style="width:500px;"><%=info.getCargostatussign() %></textarea>
 						</td>
 					</tr>
 					<tr>

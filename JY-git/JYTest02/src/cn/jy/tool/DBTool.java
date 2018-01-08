@@ -25,9 +25,10 @@ import cn.jy.entity.Workerinfo;
 public class DBTool {
 	private String driver 	= "com.mysql.jdbc.Driver";
 	private String dbName 	= "mydb";
-	private String password = "";
+	private String password = "123456";
 	private String userName = "root";
-	private String url 		= "jdbc:mysql://172.23.207.140:3306/" + dbName+"?useUnicode=true&characterEncoding=UTF-8";
+	private String url 		= "jdbc:mysql://39.106.70.111:9983/" + dbName+"?useUnicode=true&characterEncoding=UTF-8";
+//	private String url 		= "jdbc:mysql://localhost:9983/" + dbName+"?useUnicode=true&characterEncoding=UTF-8";
 	
 	public DBTool() {
 	
@@ -472,7 +473,9 @@ public class DBTool {
 						rs.getString(2).toString(),
 						rs.getString(3).toString(),
 						rs.getString(4).toString(),
-						rs.getString(5).toString()
+						rs.getString(5).toString(),
+						rs.getString(6).toString(),
+						rs.getString(8).toString()
 						);
 				list.add(resigninfo);
 			}

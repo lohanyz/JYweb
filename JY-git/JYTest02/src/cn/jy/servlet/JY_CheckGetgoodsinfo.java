@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBas;
 import snsoft.tss.quote.chance.cxf.FtcCenterWebServiceBasService;
 import net.sf.json.JSONArray;
@@ -49,7 +52,7 @@ public class JY_CheckGetgoodsinfo extends HttpServlet {
 		switch (nOperType) {
 		// 网络更新;
 		case 1:
-
+			//JsonObject returnData = new JsonParser().parse().getAsJsonObject();
 			bid = new String(req.getParameter("bid").getBytes("iso-8859-1"), "utf-8");
 			gid = new String(req.getParameter("gid").getBytes("iso-8859-1"), "utf-8");
 			gstate = req.getParameter("gstate");

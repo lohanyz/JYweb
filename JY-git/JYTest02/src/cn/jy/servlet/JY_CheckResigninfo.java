@@ -72,7 +72,7 @@ public class JY_CheckResigninfo extends HttpServlet {
 		// 信息查询
 		case 2:
 			rid = req.getParameter("rid");
-			sql = "select * from Resigninfo where rid=" + rid;
+			sql = "select * from signinfo where barcode=" + rid;
 			list = dbTool.doDBQueryResigninfo(sql);
 			nSize = list.size();
 			if (nSize > 0) {
@@ -80,11 +80,12 @@ public class JY_CheckResigninfo extends HttpServlet {
 				for (Resigninfo bean : list) {
 					JSONObject obj = new JSONObject();
 					try {
-						obj.put("bid", bean.getBid());
-						obj.put("rid", bean.getRid());
-						obj.put("gid", bean.getGid());
-						obj.put("state", bean.getState());
-						obj.put("simg", bean.getSimg());
+						obj.put("_id", bean.get_id());
+						obj.put("busiinvcode", bean.getBusiinvcode());
+						obj.put("barcode", bean.getBarcode());
+						obj.put("cargostatussign", bean.getCargostatussign());
+						obj.put("receiptdate", bean.getReceiptdate());
+						obj.put("simg", bean.getImg());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -112,11 +113,12 @@ public class JY_CheckResigninfo extends HttpServlet {
 				for (Resigninfo bean : list) {
 					JSONObject obj = new JSONObject();
 					try {
-						obj.put("bid", bean.getBid());
-						obj.put("rid", bean.getRid());
-						obj.put("gid", bean.getGid());
-						obj.put("state", bean.getState());
-						obj.put("simg", bean.getSimg());
+						obj.put("_id", bean.get_id());
+						obj.put("busiinvcode", bean.getBusiinvcode());
+						obj.put("barcode", bean.getBarcode());
+						obj.put("cargostatussign", bean.getCargostatussign());
+						obj.put("receiptdate", bean.getReceiptdate());
+						obj.put("simg", bean.getImg());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
